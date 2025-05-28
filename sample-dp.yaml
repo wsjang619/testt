@@ -1,22 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-app
-  namespace: default
-  labels:
-    app: sample-app
+  name: guestbook-ui
 spec:
-  replicas: 2
+  replicas: 1
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: sample-app
+      app: guestbook-ui
   template:
     metadata:
       labels:
-        app: sample-app
+        app: guestbook-ui
     spec:
       containers:
-      - name: nginx
-        image: nginx
+      - image: quay.io/argoprojlabs/argocd-e2e-container:0.2
+        name: guestbook-ui
         ports:
         - containerPort: 80
